@@ -1,0 +1,69 @@
+#include <stdio.h>
+
+#define MAX_STUDENTS 100
+
+// Structure to represent a student
+struct Student {
+    char name[50];
+    int marks;
+};
+
+// Function to read student details
+void readStudentDetails(struct Student students[], int n) {
+    int i;
+    for (i = 0; i < n; i++) {
+        printf("Enter details for student %d:\n", i + 1);
+        printf("Name: ");
+        scanf("%s", students[i].name);
+        printf("Marks: ");
+        scanf("%d", &students[i].marks);
+    }
+}
+
+// Function to compute the average marks
+float computeAverageMarks(struct Student students[], int n) {
+    int i, totalMarks = 0;
+    for (i = 0; i < n; i++) {
+        totalMarks += students[i].marks;
+    }
+    return (float)totalMarks / n;
+}
+
+// Function to display students above and below average marks
+void displayStudents(struct Student students[], int n, float average) {
+    int i;
+    printf("Students above average marks:\n");
+    for (i = 0; i < n; i++) {
+        if (students[i].marks > average) {
+            printf("%s\n", students[i].name);
+        }
+    }
+    printf("Students below average marks:\n");
+    for (i = 0; i < n; i++) {
+        if (students[i].marks < average) {
+            printf("%s\n", students[i].name);
+        }
+    }
+}
+
+int main() {
+    struct Student students[MAX_STUDENTS];
+    int n;
+
+    printf("Enter the number of students: ");
+    scanf("%d", &n);
+
+    if (n > MAX_STUDENTS) {
+        printf("Error: Maximum number of students exceeded.\n");
+        return 1;
+    }
+
+    readStudentDetails(students, n);
+
+    float average = computeAverageMarks(students, n);
+    printf("Average marks: %.2f\n", average);
+
+    displayStudents(students, n, average);
+
+    return 0;
+}

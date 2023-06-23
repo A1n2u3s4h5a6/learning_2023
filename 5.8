@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Structure definition
+typedef struct {
+    int id;
+    char name[20];
+} Student;
+
+// Function to modify the structure members
+void modifyStudent(Student *student) {
+    student->id = 1001;
+    strcpy(student->name, "John");
+}
+
+// Function to demonstrate passing and modifying the structure
+Student* passAndModify(Student *student) {
+    modifyStudent(student);
+    return student;
+}
+
+int main() {
+    // Create a student structure
+    Student myStudent = (Student)malloc(sizeof(Student));
+    myStudent->id = 0;
+    strcpy(myStudent->name, "");
+
+    // Pass the student structure to the function
+    Student *modifiedStudent = passAndModify(myStudent);
+
+    // Print the modified structure
+    printf("Modified Student:\n");
+    printf("ID: %d\n", modifiedStudent->id);
+    printf("Name: %s\n", modifiedStudent->name);
+
+    // Free the dynamically allocated memory
+    free(myStudent);
+
+    return 0;
+}
